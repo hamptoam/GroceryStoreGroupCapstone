@@ -7,5 +7,9 @@ namespace GroceryStoreRewards.Models
 {
     public class CustomerPurchases
     {
+
+
+
+
     }
 }
