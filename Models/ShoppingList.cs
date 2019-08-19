@@ -5,11 +5,7 @@ using System.Threading.Tasks;
 
 namespace GroceryStoreRewards.Models
 {
-    public class CustomerPurchases
+    public class ShoppingList
     {
-
-
-
-
     }
 }
