@@ -9,16 +9,13 @@ namespace GroceryStoreRewards.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public DbSet<Customer> Customer { get; set; }
-        public DbSet<CustomerPurchases> CustomerPurchases { get; set; }
+      
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
         
-            public DbSet <Customer> Customers { get; set; }
-            public DbSet <GroceryStore> Stores { get; set; }            
-            public DbSet <CustomerPurchases> Purchases { get; set; }
+ 
         
     }
 }
