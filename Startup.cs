@@ -57,12 +57,12 @@ namespace GroceryStoreRewards
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
                 services.AddDefaultIdentity<IdentityUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>(); 
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+              /*  services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                 services.AddIdentity<IdentityUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                   .AddDefaultTokenProviders();
+                   .AddDefaultTokenProviders(); */ 
                 //password strength setting 
 
                 services.Configure<IdentityOptions>(options =>
