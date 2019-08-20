@@ -27,39 +27,16 @@ namespace GroceryStoreRewards
 
         public IConfiguration Configuration;
 
-<<<<<<< HEAD
-        //public void Configure(IApplicationBuilder app, DbSeedData seeder, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        //{
-        //    seeder.EnsureSeedData();
-        //}
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+        
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //services.AddTransient<DbSeedData>();
-
-        }
-=======
             // This method gets called by the runtime. Use this method to add services to the container.
             public void ConfigureServices(IServiceCollection services)
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                                                                 //options.UseSqlServer(Configuration.GetConnectionString("GroceryStoreRewards")));
                                                                 options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=aspnet-GroceryStoreRewards-10C58CD2-3212-495B-97B1-61D565D1AC4E;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
->>>>>>> da6537fc5b46cfc1f9d8324d191149831ddf8724
+
 
             services.AddMvc();
 
@@ -134,7 +111,7 @@ namespace GroceryStoreRewards
                 app.UseCookiePolicy();
                 app.UseAuthentication();
 
-<<<<<<< HEAD
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -145,7 +122,6 @@ namespace GroceryStoreRewards
 
 
 
-=======
 
                 app.UseMvc(routes =>
                 {
@@ -155,10 +131,10 @@ namespace GroceryStoreRewards
 
                 });
 
-               // CreateUserRoles(services).Wait();
+              
 
             }
->>>>>>> da6537fc5b46cfc1f9d8324d191149831ddf8724
+
         }
 
     }
