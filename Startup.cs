@@ -28,17 +28,13 @@ namespace GroceryStoreRewards
         public IConfiguration Configuration;
 
 
-        //public void Configure(IApplicationBuilder app, DbSeedData seeder, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        //{
-        //    seeder.EnsureSeedData();
-        //}
-        // This method gets called by the runtime. Use this method to add services to the container.
-   
+
             public void ConfigureServices(IServiceCollection services)
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                                                                 //options.UseSqlServer(Configuration.GetConnectionString("GroceryStoreRewards")));
                                                                 options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=aspnet-GroceryStoreRewards-10C58CD2-3212-495B-97B1-61D565D1AC4E;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+
 
             services.AddMvc();
 
@@ -56,12 +52,12 @@ namespace GroceryStoreRewards
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
                 services.AddDefaultIdentity<IdentityUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>(); 
 
-                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+              /*  services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                 services.AddIdentity<IdentityUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                   .AddDefaultTokenProviders();
+                   .AddDefaultTokenProviders(); */ 
                 //password strength setting 
 
                 services.Configure<IdentityOptions>(options =>
@@ -114,6 +110,18 @@ namespace GroceryStoreRewards
                 app.UseAuthentication();
 
 
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+
+
+
+
                 app.UseMvc(routes =>
                 {
                     routes.MapRoute(
@@ -122,7 +130,7 @@ namespace GroceryStoreRewards
 
                 });
 
-               // CreateUserRoles(services).Wait();
+              
 
             }
 
