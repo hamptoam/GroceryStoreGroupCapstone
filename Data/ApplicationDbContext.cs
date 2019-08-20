@@ -11,19 +11,13 @@ namespace GroceryStoreRewards.Data
     {
 
 
-      
-       
-
-
-
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<Customer> Customer { get; set; }
+
 
         public DbSet<ShoppingList> ShoppingLists { get; set; }
 
@@ -32,10 +26,10 @@ namespace GroceryStoreRewards.Data
         public DbSet<Recipes> Recipes { get; set; }
 
 
+     
 
 
     }
-
 
 }
 
