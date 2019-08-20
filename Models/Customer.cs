@@ -18,10 +18,11 @@ namespace GroceryStoreRewards.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-      
         public string Email { get; set; }
 
-        
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
 
         public string Preference { get; set; }
 

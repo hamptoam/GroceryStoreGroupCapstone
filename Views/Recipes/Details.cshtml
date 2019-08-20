@@ -1,0 +1,36 @@
+﻿@model GroceryStoreRewards.Models.Recipes
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Recipes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ingredientAmounts)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ingredientAmounts)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ingredients)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ingredients)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.shoppingList)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.shoppingList)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
