@@ -12,11 +12,14 @@ using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GroceryStoreRewards.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GroceryStoreRewards
 {
     public class Startup
-    {
+    { 
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +27,10 @@ namespace GroceryStoreRewards
 
         public IConfiguration Configuration { get; }
 
+        //public void Configure(IApplicationBuilder app, DbSeedData seeder, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        //{
+        //    seeder.EnsureSeedData();
+        //}
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -41,6 +48,8 @@ namespace GroceryStoreRewards
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddTransient<DbSeedData>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +78,11 @@ namespace GroceryStoreRewards
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+
+
         }
+
     }
 }
