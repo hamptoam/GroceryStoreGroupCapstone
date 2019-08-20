@@ -27,30 +27,19 @@ namespace GroceryStoreRewards
 
         public IConfiguration Configuration;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> aa53a2236ff9324b70019277ee0999dccae42a5d
         //public void Configure(IApplicationBuilder app, DbSeedData seeder, IHostingEnvironment env, ILoggerFactory loggerFactory)
         //{
         //    seeder.EnsureSeedData();
         //}
         // This method gets called by the runtime. Use this method to add services to the container.
-<<<<<<< HEAD
 
-            // This method gets called by the runtime. Use this method to add services to the container.
-=======
-   
->>>>>>> aa53a2236ff9324b70019277ee0999dccae42a5d
             public void ConfigureServices(IServiceCollection services)
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
                                                                 //options.UseSqlServer(Configuration.GetConnectionString("GroceryStoreRewards")));
                                                                 options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=aspnet-GroceryStoreRewards-10C58CD2-3212-495B-97B1-61D565D1AC4E;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
-<<<<<<< HEAD
 
-=======
->>>>>>> aa53a2236ff9324b70019277ee0999dccae42a5d
 
             services.AddMvc();
 
