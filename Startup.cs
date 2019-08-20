@@ -28,11 +28,6 @@ namespace GroceryStoreRewards
         public IConfiguration Configuration;
 
 
-        //public void Configure(IApplicationBuilder app, DbSeedData seeder, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        //{
-        //    seeder.EnsureSeedData();
-        //}
-        // This method gets called by the runtime. Use this method to add services to the container.
 
             public void ConfigureServices(IServiceCollection services)
             {
@@ -115,6 +110,18 @@ namespace GroceryStoreRewards
                 app.UseAuthentication();
 
 
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+
+
+
+
                 app.UseMvc(routes =>
                 {
                     routes.MapRoute(
@@ -123,7 +130,7 @@ namespace GroceryStoreRewards
 
                 });
 
-               // CreateUserRoles(services).Wait();
+              
 
             }
 

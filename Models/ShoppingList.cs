@@ -15,7 +15,11 @@ namespace GroceryStoreRewards.Models
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-       
+        public string Ingredients { get; set; }
+
+
+
+
 
     }
 }
