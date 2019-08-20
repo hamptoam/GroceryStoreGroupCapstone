@@ -12,18 +12,26 @@ using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GroceryStoreRewards.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GroceryStoreRewards
 {
     public class Startup
-    {
+    { 
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration;
 
+<<<<<<< HEAD
+        //public void Configure(IApplicationBuilder app, DbSeedData seeder, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        //{
+        //    seeder.EnsureSeedData();
+        //}
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -41,34 +49,120 @@ namespace GroceryStoreRewards
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddTransient<DbSeedData>();
+
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
+=======
+            // This method gets called by the runtime. Use this method to add services to the container.
+            public void ConfigureServices(IServiceCollection services)
             {
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                services.AddDbContext<ApplicationDbContext>(options =>
+                                                                //options.UseSqlServer(Configuration.GetConnectionString("GroceryStoreRewards")));
+                                                                options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=aspnet-GroceryStoreRewards-10C58CD2-3212-495B-97B1-61D565D1AC4E;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+>>>>>>> da6537fc5b46cfc1f9d8324d191149831ddf8724
+
+            services.AddMvc();
+
+                services.Configure<CookiePolicyOptions>(options =>
+                {
+                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                    // app.UseMvc();
+
+                });
+
+
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("DefaultConnection")));
+                services.AddDefaultIdentity<IdentityUser>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+                services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                services.AddIdentity<IdentityUser, IdentityRole>()
+                   .AddEntityFrameworkStores<ApplicationDbContext>()
+                   .AddDefaultTokenProviders();
+                //password strength setting 
+
+                services.Configure<IdentityOptions>(options =>
+                {
+
+                    options.Password.RequireDigit = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequiredUniqueChars = 6;
+
+                    //User Settings 
+                    options.User.RequireUniqueEmail = true;
+                });
+
+                //Setting the account login page
+
+                services.ConfigureApplicationCookie(options =>
+                {
+                    //cookie settings
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.LoginPath = "/Account/Login"; // if the loginpath is not set here 
+                    options.LogoutPath = "/Account/Logout";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.SlidingExpiration = true;
+
+                });
             }
-            else
+
+            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+                if (env.IsDevelopment())
+                {
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
+                    app.UseDeveloperExceptionPage();
+                    app.UseDatabaseErrorPage();
+                }
+                else
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    app.UseHsts();
+                }
 
-            app.UseAuthentication();
+                app.UseHttpsRedirection();
+                app.UseStaticFiles();
+                app.UseCookiePolicy();
+                app.UseAuthentication();
 
+<<<<<<< HEAD
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+
+
+=======
+
+                app.UseMvc(routes =>
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+
+                });
+
+               // CreateUserRoles(services).Wait();
+
+            }
+>>>>>>> da6537fc5b46cfc1f9d8324d191149831ddf8724
         }
+
     }
-}
+
+
+
+

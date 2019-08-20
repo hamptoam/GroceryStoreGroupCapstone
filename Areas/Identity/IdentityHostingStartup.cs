@@ -18,4 +18,5 @@ namespace GroceryStoreRewards.Areas.Identity
             });
         }
     }
+
 }
