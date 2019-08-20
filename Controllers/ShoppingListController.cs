@@ -7,6 +7,7 @@ using GroceryStoreRewards.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace GroceryStoreRewards.Controllers
 {
     [Route("api/[controller]")]
@@ -15,16 +16,13 @@ namespace GroceryStoreRewards.Controllers
     {
         ApplicationDbContext db;
 
-        public ShoppingListController()
-        {
-            db = new ApplicationDbContext();
-        }
+       
       
         // GET: api/ShoppingList
         [HttpGet]
         public IEnumerable<ShoppingList> Get()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
+          
             var shoppingList = db.ShoppingLists.ToList();
             return shoppingList;
         }

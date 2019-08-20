@@ -11,10 +11,7 @@ namespace GroceryStoreRewards.Data
     {
        
 
-        public ApplicationDbContext()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-        }
+        
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
