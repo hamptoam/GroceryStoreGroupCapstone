@@ -39,21 +39,27 @@ namespace GroceryStoreRewards
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                    options.CheckConsentNeeded = context => true;
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-                    //app.UseMvc();
+                //app.UseMvc();
 
-                });
+            });
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
+
+            services.AddTransient<UserManager<IdentityUser>>();
+
 
             /*  services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
               services.AddIdentity<IdentityUser, IdentityRole>()
@@ -71,19 +77,19 @@ namespace GroceryStoreRewards
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 6;
 
-                    //User Settings 
-                    options.User.RequireUniqueEmail = true;
+                //User Settings 
+                options.User.RequireUniqueEmail = true;
             });
 
             //Setting the account login page
 
             services.ConfigureApplicationCookie(options =>
             {
-                    //cookie settings
-                    options.Cookie.HttpOnly = true;
+                //cookie settings
+                options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.LoginPath = "/Account/Login"; // if the loginpath is not set here 
-                    options.LogoutPath = "/Account/Logout";
+                options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
 
@@ -110,15 +116,13 @@ namespace GroceryStoreRewards
             app.UseCookiePolicy();
             app.UseAuthentication();
 
-
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            CreateRoles(services).Wait();
+            //CreateRoles(services).Wait();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider)
@@ -126,7 +130,7 @@ namespace GroceryStoreRewards
             //initializing custom roles  
 
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             string[] roleNames = { "Admin", "Manager", "Member" };
             IdentityResult roleResult;
 
@@ -141,9 +145,9 @@ namespace GroceryStoreRewards
             }
 
             //creating poweruser (who would maintain app)
-            var poweruser = new ApplicationUser
+            var poweruser = new IdentityUser
             {
-                email = Configuration.GetSection("UserSettings")["UserEmail"]
+                Email = Configuration.GetSection("UserSettings")["UserEmail"]
 
             };
 
@@ -163,7 +167,7 @@ namespace GroceryStoreRewards
 
     }
 
-    }
+}
 
 
 
