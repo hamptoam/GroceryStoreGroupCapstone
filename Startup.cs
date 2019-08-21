@@ -51,7 +51,7 @@ namespace GroceryStoreRewards
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
-                services.AddDefaultIdentity<IdentityUser>()
+                services.AddDefaultIdentity<Microsoft.AspNetCore.Identity.IdentityUser>()
                     .AddEntityFrameworkStores<ApplicationDbContext>(); 
 
               /*  services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
