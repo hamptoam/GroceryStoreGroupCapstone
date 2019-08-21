@@ -118,13 +118,13 @@ namespace GroceryStoreRewards
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
+            /* app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")), //this doesn't work throwing exception will fix
                 RequestPath = "/StaticFiles"
 
-            }); 
+             }); */
             app.UseCookiePolicy();
             app.UseAuthentication();
 
