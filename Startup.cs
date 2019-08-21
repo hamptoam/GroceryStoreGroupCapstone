@@ -43,7 +43,7 @@ namespace GroceryStoreRewards
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
-                    // app.UseMvc();
+                    //app.UseMvc();
 
                 });
 
@@ -57,7 +57,7 @@ namespace GroceryStoreRewards
               /*  services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
                 services.AddIdentity<IdentityUser, IdentityRole>()
                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                   .AddDefaultTokenProviders(); */ 
+                   .AddDefaultTokenProviders(); This caused an error after I learned I could scaffold the identity*/ 
                 //password strength setting 
 
                 services.Configure<IdentityOptions>(options =>

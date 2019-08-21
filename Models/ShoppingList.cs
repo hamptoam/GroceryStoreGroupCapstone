@@ -17,9 +17,5 @@ namespace GroceryStoreRewards.Models
 
         public string Ingredients { get; set; }
 
-
-
-
-
     }
 }
