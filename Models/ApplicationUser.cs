@@ -7,7 +7,7 @@ namespace GroceryStoreRewards.Models
 {
     public class ApplicationUser 
     {
-
+        public string email { get; set; }
 
     }
 }
