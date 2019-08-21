@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GroceryStoreRewards.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace GroceryStoreRewards
 {
@@ -36,6 +38,7 @@ namespace GroceryStoreRewards
 
 
             services.AddMvc();
+       
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -53,6 +56,8 @@ namespace GroceryStoreRewards
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+
+
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
@@ -113,6 +118,13 @@ namespace GroceryStoreRewards
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            /* app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")), //this doesn't work throwing exception will fix
+                RequestPath = "/StaticFiles"
+
+             }); */
             app.UseCookiePolicy();
             app.UseAuthentication();
 
@@ -125,7 +137,7 @@ namespace GroceryStoreRewards
             //CreateRoles(services).Wait();
         }
 
-        private async Task CreateRoles(IServiceProvider serviceProvider)
+        private async Task createRoles(IServiceProvider serviceProvider)
         {
             //initializing custom roles  
 
@@ -141,6 +153,7 @@ namespace GroceryStoreRewards
                 if (!roleExist)
                 {
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                    
                 }
             }
 

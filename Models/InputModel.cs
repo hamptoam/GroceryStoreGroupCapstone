@@ -10,15 +10,15 @@ namespace GroceryStoreRewards.Models
     {
         [Required]
         [Display(Name = "First Name")]
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
-        public string lastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [Display(Name = "Email")]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Display(Name = "Super Admin")]
         public bool isSuperAdmin { get; set; }

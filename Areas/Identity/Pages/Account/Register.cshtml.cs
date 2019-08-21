@@ -42,6 +42,8 @@ namespace GroceryStoreRewards.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            internal bool isSuperAdmin;
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -61,18 +63,39 @@ namespace GroceryStoreRewards.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;
+            ReturnUrl = returnUrl; //get handler  
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null) //post handler 
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var isSuperAdmin = new InputModel();
+
+                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email }; //store name on customer model
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if(!await _roleManager.RoleExistsAsync(StaticDetails.AdminEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticDetails.AdminEndUser));
+                    }
+                    if(!await _roleManager.RoleExistsAsync(StaticDetails.SuperAdminEndUser))
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(StaticDetails.SuperAdminEndUser));
+                    }
+                    if(Input.isSuperAdmin) 
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.SuperAdminEndUser);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.AdminEndUser);
+                    }
+
+                    //create static details class 
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
