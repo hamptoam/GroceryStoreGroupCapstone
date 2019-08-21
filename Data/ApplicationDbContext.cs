@@ -18,10 +18,7 @@ namespace GroceryStoreRewards.Data
 
         public DbSet<Customer> Customer { get; set; }
 
-
         public DbSet<ShoppingList> ShoppingLists { get; set; }
-
-        
 
         public DbSet<Recipes> Recipes { get; set; }
 
