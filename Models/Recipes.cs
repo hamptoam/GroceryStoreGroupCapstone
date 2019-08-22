@@ -12,7 +12,11 @@ namespace GroceryStoreRewards.Models
         public int Id { get; set; }
         public double ingredientAmounts { get; set; }
         public string ingredients { get; set; }
-        public string shoppingList { get; set; }
+<<<<<<< HEAD
+
+=======
+       
+>>>>>>> f95223c0d82a40d8154da3543789a1803fabb5ae
         
     }
 }
