@@ -12,6 +12,7 @@ namespace GroceryStoreRewards.Models
         public int Id { get; set; }
         public double ingredientAmounts { get; set; }
         public string ingredients { get; set; }
+
         
     }
 }
