@@ -10,12 +10,9 @@ namespace GroceryStoreRewards.Data
     public class ApplicationDbContext : IdentityDbContext
     {
 
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        {
-        }
-
+        { }
         public DbSet<Customer> Customer { get; set; }
 
         public DbSet<ShoppingList> ShoppingLists { get; set; }
@@ -23,10 +20,26 @@ namespace GroceryStoreRewards.Data
         public DbSet<Recipes> Recipes { get; set; }
 
 
-     
 
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+       
+        modelBuilder.Entity<ShoppingList>().HasData(
+                  new ShoppingList
+                  {
+                      UserId = 1,
+                      FirstName = "mary",
+                      Ingredients = "Oats"
+                  }
+                  );
+            }
+
+        }
     }
 
-}
+
+    
+
 
