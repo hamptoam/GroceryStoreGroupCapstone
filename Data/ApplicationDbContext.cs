@@ -15,14 +15,12 @@ namespace GroceryStoreRewards.Data
         { }
         public DbSet<Customer> Customer { get; set; }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cb8bb93f1c2740859127868175941ddd92c50779
         public DbSet<ShoppingList> ShoppingLists { get; set; }
 
         public DbSet<Recipes> Recipes { get; set; }
 
+        public DbSet<Ingredients> Ingredients{ get; set; }
 
 
 
@@ -32,14 +30,12 @@ namespace GroceryStoreRewards.Data
             modelBuilder.Seed();
         }
 
-<<<<<<< HEAD
+
 
     
 }   }
 
 
-=======
->>>>>>> cb8bb93f1c2740859127868175941ddd92c50779
 
     
 
