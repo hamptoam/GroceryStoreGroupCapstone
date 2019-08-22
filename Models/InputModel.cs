@@ -20,7 +20,8 @@ namespace GroceryStoreRewards.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Display(Name = "Super Admin")]
+        [Required]
+        [Display(Name = "Admin")]
         public bool isSuperAdmin { get; set; }
 
     }
