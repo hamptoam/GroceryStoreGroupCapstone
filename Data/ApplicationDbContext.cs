@@ -14,14 +14,11 @@ namespace GroceryStoreRewards.Data
             : base(options)
         { }
         public DbSet<Customer> Customer { get; set; }
-<<<<<<< HEAD
-=======
 
->>>>>>> 158a5fa2b82d2e0edbadef26732d61bd62cb003e
         public DbSet<ShoppingList> ShoppingLists { get; set; }
 
         public DbSet<Recipes> Recipes { get; set; }
-<<<<<<< HEAD
+
 
 
 
@@ -42,10 +39,6 @@ namespace GroceryStoreRewards.Data
         }
     }
 
-=======
-    }
-}
->>>>>>> 247495e1db156096fffc91567cc247580b3244ab
 
     
 
