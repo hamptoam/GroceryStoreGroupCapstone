@@ -149,5 +149,27 @@ namespace GroceryStoreRewards.Controllers
         {
             return _context.Recipes.Any(e => e.Id == id);
         }
+
+        public void likeOrDislike()
+        {
+            var customer = new Customer();
+
+            if (customer.customerLikes == true)
+            {
+
+
+
+
+
+            }
+
+            else if (customer.customerLikes == false)
+            {
+
+
+
+
+            }
+        }
     }
 }

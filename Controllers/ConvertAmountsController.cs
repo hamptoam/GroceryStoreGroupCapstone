@@ -12,7 +12,7 @@ namespace GroceryStoreRewards.Controllers
 {
     public class ConvertAmountsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        public ApplicationDbContext _context;
 
         public ConvertAmountsController(ApplicationDbContext context)
         {
