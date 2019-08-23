@@ -2,60 +2,152 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using GroceryStoreRewards.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryStoreRewards.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RecipeController : ControllerBase
+    public class RecipeController : Controller
     {
-        ApplicationDbContext db;
-        // GET: api/Recipe
-        [HttpGet]
-        public IEnumerable<Recipes> Get()
+        private readonly ApplicationDbContext _context;
+
+        public RecipeController(ApplicationDbContext context)
         {
-             var Recipes = db.Recipes.ToList();
-            return Recipes;
+            _context = context;
         }
 
-        // GET: api/Recipe/5
-        [HttpGet("{id}", Name = "Get")]
-        public Recipes Get(int id)
+        // GET: Recipe
+        public async Task<IActionResult> Index()
         {
-            var Recipes = db.Recipes.Where(s => s.Id == id).SingleOrDefault();
-            return Recipes;
+            return View(await _context.Recipes.ToListAsync());
         }
 
-        // POST: api/Recipe
+        // GET: Recipe/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var recipes = await _context.Recipes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (recipes == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipes);
+        }
+
+        // GET: Recipe/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Recipe/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public void Post([FromBody] Recipes recipes)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
         {
-            db.Recipes.Add(recipes);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _context.Add(recipes);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(recipes);
         }
 
-        // PUT: api/Recipe/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Recipes recipes)
+        // GET: Recipe/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
-            Recipes recipes1 = db.Recipes.FirstOrDefault(s => s.Id == id);
-            recipes1.Id = recipes.Id;
-            recipes1.ingredientAmounts = recipes.ingredientAmounts;
-            recipes1.ingredients = recipes.ingredients;
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            db.SaveChanges();
+            var recipes = await _context.Recipes.FindAsync(id);
+            if (recipes == null)
+            {
+                return NotFound();
+            }
+            return View(recipes);
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST: Recipe/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
         {
-            db.Recipes.Remove(db.Recipes.FirstOrDefault(s => s.Id == id));
-            db.SaveChanges();
+            if (id != recipes.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(recipes);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RecipesExists(recipes.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(recipes);
+        }
+
+        // GET: Recipe/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var recipes = await _context.Recipes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (recipes == null)
+            {
+                return NotFound();
+            }
+
+            return View(recipes);
+        }
+
+        // POST: Recipe/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var recipes = await _context.Recipes.FindAsync(id);
+            _context.Recipes.Remove(recipes);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool RecipesExists(int id)
+        {
+            return _context.Recipes.Any(e => e.Id == id);
         }
     }
 }

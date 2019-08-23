@@ -9,8 +9,7 @@ using RestSharp;
 
 namespace GroceryStoreRewards.Models
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    
     public class IngredientsController : ControllerBase
     {
         ApplicationDbContext db;

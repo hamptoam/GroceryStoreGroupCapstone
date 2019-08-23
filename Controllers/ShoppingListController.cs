@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GroceryStoreRewards.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    
     public class ShoppingListController : ControllerBase
     {
         ApplicationDbContext db;
