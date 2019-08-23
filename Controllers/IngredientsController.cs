@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GroceryStoreRewards.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace GroceryStoreRewards.Models
 {
@@ -16,6 +17,22 @@ namespace GroceryStoreRewards.Models
 
         // GET: api/Ingredients
         [HttpGet]
+
+        public IActionResult Index()
+        {
+            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/1003464/ingredientWidget.json");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "9aea809182msh45b6cdf8b73c98fp19e9bajsnd317d98d96aa");
+            IRestResponse response = client.Execute(request);
+            return View(response);
+        }
+
+        private IActionResult View(IRestResponse response)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Ingredients> Get()
         {
             var Ingredients = db.Ingredients.ToList();
