@@ -32,6 +32,18 @@ namespace GroceryStoreRewards.Data
 
 
 
+        public DbSet<GroceryStoreRewards.Models.SummarizeRecipeAPI> SummarizeRecipeAPI { get; set; }
+
+
+
+        public DbSet<GroceryStoreRewards.Models.RecipeIngredient> RecipeIngredient { get; set; }
+
+
+
+        public DbSet<GroceryStoreRewards.Models.ConvertAmounts> ConvertAmounts { get; set; }
+
+
+
     
 }   }
 

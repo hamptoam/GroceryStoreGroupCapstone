@@ -10,22 +10,22 @@ using GroceryStoreRewards.Models;
 
 namespace GroceryStoreRewards.Controllers
 {
-    public class Ingredients1Controller : Controller
+    public class RecipesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Ingredients1Controller(ApplicationDbContext context)
+        public RecipesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Ingredients1
+        // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredients.ToListAsync());
+            return View(await _context.Recipes.ToListAsync());
         }
 
-        // GET: Ingredients1/Details/5
+        // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
+            var recipes = await _context.Recipes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            if (recipes == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(recipes);
         }
 
-        // GET: Ingredients1/Create
+        // GET: Recipes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ingredients1/Create
+        // POST: Recipes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Create([Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ingredients);
+                _context.Add(recipes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(recipes);
         }
 
-        // GET: Ingredients1/Edit/5
+        // GET: Recipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            if (ingredients == null)
+            var recipes = await _context.Recipes.FindAsync(id);
+            if (recipes == null)
             {
                 return NotFound();
             }
-            return View(ingredients);
+            return View(recipes);
         }
 
-        // POST: Ingredients1/Edit/5
+        // POST: Recipes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
         {
-            if (id != ingredients.Id)
+            if (id != recipes.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(ingredients);
+                    _context.Update(recipes);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngredientsExists(ingredients.Id))
+                    if (!RecipesExists(recipes.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace GroceryStoreRewards.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(recipes);
         }
 
-        // GET: Ingredients1/Delete/5
+        // GET: Recipes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
+            var recipes = await _context.Recipes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            if (recipes == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(recipes);
         }
 
-        // POST: Ingredients1/Delete/5
+        // POST: Recipes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            _context.Ingredients.Remove(ingredients);
+            var recipes = await _context.Recipes.FindAsync(id);
+            _context.Recipes.Remove(recipes);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IngredientsExists(int id)
+        private bool RecipesExists(int id)
         {
-            return _context.Ingredients.Any(e => e.Id == id);
+            return _context.Recipes.Any(e => e.Id == id);
         }
     }
 }

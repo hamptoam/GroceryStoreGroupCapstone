@@ -10,22 +10,22 @@ using GroceryStoreRewards.Models;
 
 namespace GroceryStoreRewards.Controllers
 {
-    public class Ingredients1Controller : Controller
+    public class SummarizeRecipeAPIsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Ingredients1Controller(ApplicationDbContext context)
+        public SummarizeRecipeAPIsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Ingredients1
+        // GET: SummarizeRecipeAPIs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredients.ToListAsync());
+            return View(await _context.SummarizeRecipeAPI.ToListAsync());
         }
 
-        // GET: Ingredients1/Details/5
+        // GET: SummarizeRecipeAPIs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            var summarizeRecipeAPI = await _context.SummarizeRecipeAPI
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (summarizeRecipeAPI == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(summarizeRecipeAPI);
         }
 
-        // GET: Ingredients1/Create
+        // GET: SummarizeRecipeAPIs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ingredients1/Create
+        // POST: SummarizeRecipeAPIs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Create([Bind("id,title,summary")] SummarizeRecipeAPI summarizeRecipeAPI)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ingredients);
+                _context.Add(summarizeRecipeAPI);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(summarizeRecipeAPI);
         }
 
-        // GET: Ingredients1/Edit/5
+        // GET: SummarizeRecipeAPIs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            if (ingredients == null)
+            var summarizeRecipeAPI = await _context.SummarizeRecipeAPI.FindAsync(id);
+            if (summarizeRecipeAPI == null)
             {
                 return NotFound();
             }
-            return View(ingredients);
+            return View(summarizeRecipeAPI);
         }
 
-        // POST: Ingredients1/Edit/5
+        // POST: SummarizeRecipeAPIs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Edit(int id, [Bind("id,title,summary")] SummarizeRecipeAPI summarizeRecipeAPI)
         {
-            if (id != ingredients.Id)
+            if (id != summarizeRecipeAPI.id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(ingredients);
+                    _context.Update(summarizeRecipeAPI);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngredientsExists(ingredients.Id))
+                    if (!SummarizeRecipeAPIExists(summarizeRecipeAPI.id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace GroceryStoreRewards.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(summarizeRecipeAPI);
         }
 
-        // GET: Ingredients1/Delete/5
+        // GET: SummarizeRecipeAPIs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            var summarizeRecipeAPI = await _context.SummarizeRecipeAPI
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (summarizeRecipeAPI == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(summarizeRecipeAPI);
         }
 
-        // POST: Ingredients1/Delete/5
+        // POST: SummarizeRecipeAPIs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            _context.Ingredients.Remove(ingredients);
+            var summarizeRecipeAPI = await _context.SummarizeRecipeAPI.FindAsync(id);
+            _context.SummarizeRecipeAPI.Remove(summarizeRecipeAPI);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IngredientsExists(int id)
+        private bool SummarizeRecipeAPIExists(int id)
         {
-            return _context.Ingredients.Any(e => e.Id == id);
+            return _context.SummarizeRecipeAPI.Any(e => e.id == id);
         }
     }
 }

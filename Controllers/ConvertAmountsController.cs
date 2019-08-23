@@ -10,85 +10,85 @@ using GroceryStoreRewards.Models;
 
 namespace GroceryStoreRewards.Controllers
 {
-    public class Ingredients1Controller : Controller
+    public class ConvertAmountsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Ingredients1Controller(ApplicationDbContext context)
+        public ConvertAmountsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Ingredients1
+        // GET: ConvertAmounts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredients.ToListAsync());
+            return View(await _context.ConvertAmounts.ToListAsync());
         }
 
-        // GET: Ingredients1/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: ConvertAmounts/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            var convertAmounts = await _context.ConvertAmounts
+                .FirstOrDefaultAsync(m => m.type == id);
+            if (convertAmounts == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(convertAmounts);
         }
 
-        // GET: Ingredients1/Create
+        // GET: ConvertAmounts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ingredients1/Create
+        // POST: ConvertAmounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Create([Bind("type,sourceAmount,sourceUnit,targetAmount,targetUnit,answer")] ConvertAmounts convertAmounts)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ingredients);
+                _context.Add(convertAmounts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(convertAmounts);
         }
 
-        // GET: Ingredients1/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: ConvertAmounts/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            if (ingredients == null)
+            var convertAmounts = await _context.ConvertAmounts.FindAsync(id);
+            if (convertAmounts == null)
             {
                 return NotFound();
             }
-            return View(ingredients);
+            return View(convertAmounts);
         }
 
-        // POST: Ingredients1/Edit/5
+        // POST: ConvertAmounts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Edit(string id, [Bind("type,sourceAmount,sourceUnit,targetAmount,targetUnit,answer")] ConvertAmounts convertAmounts)
         {
-            if (id != ingredients.Id)
+            if (id != convertAmounts.type)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(ingredients);
+                    _context.Update(convertAmounts);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngredientsExists(ingredients.Id))
+                    if (!ConvertAmountsExists(convertAmounts.type))
                     {
                         return NotFound();
                     }
@@ -113,41 +113,41 @@ namespace GroceryStoreRewards.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(convertAmounts);
         }
 
-        // GET: Ingredients1/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: ConvertAmounts/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            var convertAmounts = await _context.ConvertAmounts
+                .FirstOrDefaultAsync(m => m.type == id);
+            if (convertAmounts == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(convertAmounts);
         }
 
-        // POST: Ingredients1/Delete/5
+        // POST: ConvertAmounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            _context.Ingredients.Remove(ingredients);
+            var convertAmounts = await _context.ConvertAmounts.FindAsync(id);
+            _context.ConvertAmounts.Remove(convertAmounts);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IngredientsExists(int id)
+        private bool ConvertAmountsExists(string id)
         {
-            return _context.Ingredients.Any(e => e.Id == id);
+            return _context.ConvertAmounts.Any(e => e.type == id);
         }
     }
 }

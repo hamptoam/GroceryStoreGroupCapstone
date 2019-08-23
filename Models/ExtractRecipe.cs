@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GroceryStoreRewards.Models
 {
-    public class RecipeIngredients
+    public class ExtractRecipe
     {
     }
 }
