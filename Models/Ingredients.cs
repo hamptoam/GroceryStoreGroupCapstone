@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace GroceryStoreRewards.Models
 {
-    public class Recipes
+    public class Ingredients
     {
         [Key]
         public int Id { get; set; }
-        public double ingredientAmounts { get; set; }
-        public string ingredients { get; set; }
 
-        
+        public string Name { get; set; }
     }
 }
