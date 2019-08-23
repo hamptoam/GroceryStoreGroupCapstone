@@ -10,22 +10,22 @@ using GroceryStoreRewards.Models;
 
 namespace GroceryStoreRewards.Controllers
 {
-    public class RecipesTestController : Controller
+    public class RecipesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public RecipesTestController(ApplicationDbContext context)
+        public RecipesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: RecipesTest
+        // GET: Recipes
         public async Task<IActionResult> Index()
         {
             return View(await _context.Recipes.ToListAsync());
         }
 
-        // GET: RecipesTest/Details/5
+        // GET: Recipes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,13 +43,13 @@ namespace GroceryStoreRewards.Controllers
             return View(recipes);
         }
 
-        // GET: RecipesTest/Create
+        // GET: Recipes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: RecipesTest/Create
+        // POST: Recipes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +65,7 @@ namespace GroceryStoreRewards.Controllers
             return View(recipes);
         }
 
-        // GET: RecipesTest/Edit/5
+        // GET: Recipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,7 +81,7 @@ namespace GroceryStoreRewards.Controllers
             return View(recipes);
         }
 
-        // POST: RecipesTest/Edit/5
+        // POST: Recipes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -116,7 +116,7 @@ namespace GroceryStoreRewards.Controllers
             return View(recipes);
         }
 
-        // GET: RecipesTest/Delete/5
+        // GET: Recipes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace GroceryStoreRewards.Controllers
             return View(recipes);
         }
 
-        // POST: RecipesTest/Delete/5
+        // POST: Recipes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

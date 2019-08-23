@@ -10,22 +10,22 @@ using GroceryStoreRewards.Models;
 
 namespace GroceryStoreRewards.Controllers
 {
-    public class IngredientsController : Controller
+    public class ShoppingListsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public IngredientsController(ApplicationDbContext context)
+        public ShoppingListsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Ingredients
+        // GET: ShoppingLists
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredients.ToListAsync());
+            return View(await _context.ShoppingLists.ToListAsync());
         }
 
-        // GET: Ingredients/Details/5
+        // GET: ShoppingLists/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            var shoppingList = await _context.ShoppingLists
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (shoppingList == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(shoppingList);
         }
 
-        // GET: Ingredients/Create
+        // GET: ShoppingLists/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ingredients/Create
+        // POST: ShoppingLists/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Create([Bind("UserId,FirstName,Ingredients")] ShoppingList shoppingList)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ingredients);
+                _context.Add(shoppingList);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(shoppingList);
         }
 
-        // GET: Ingredients/Edit/5
+        // GET: ShoppingLists/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            if (ingredients == null)
+            var shoppingList = await _context.ShoppingLists.FindAsync(id);
+            if (shoppingList == null)
             {
                 return NotFound();
             }
-            return View(ingredients);
+            return View(shoppingList);
         }
 
-        // POST: Ingredients/Edit/5
+        // POST: ShoppingLists/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Ingredients ingredients)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,FirstName,Ingredients")] ShoppingList shoppingList)
         {
-            if (id != ingredients.Id)
+            if (id != shoppingList.UserId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(ingredients);
+                    _context.Update(shoppingList);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!IngredientsExists(ingredients.Id))
+                    if (!ShoppingListExists(shoppingList.UserId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace GroceryStoreRewards.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ingredients);
+            return View(shoppingList);
         }
 
-        // GET: Ingredients/Delete/5
+        // GET: ShoppingLists/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ingredients == null)
+            var shoppingList = await _context.ShoppingLists
+                .FirstOrDefaultAsync(m => m.UserId == id);
+            if (shoppingList == null)
             {
                 return NotFound();
             }
 
-            return View(ingredients);
+            return View(shoppingList);
         }
 
-        // POST: Ingredients/Delete/5
+        // POST: ShoppingLists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            _context.Ingredients.Remove(ingredients);
+            var shoppingList = await _context.ShoppingLists.FindAsync(id);
+            _context.ShoppingLists.Remove(shoppingList);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IngredientsExists(int id)
+        private bool ShoppingListExists(int id)
         {
-            return _context.Ingredients.Any(e => e.Id == id);
+            return _context.ShoppingLists.Any(e => e.UserId == id);
         }
     }
 }
