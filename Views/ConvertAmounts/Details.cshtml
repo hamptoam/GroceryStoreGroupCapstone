@@ -1,0 +1,48 @@
+﻿@model GroceryStoreRewards.Models.ConvertAmounts
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ConvertAmounts</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sourceAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sourceAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.sourceUnit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.sourceUnit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.targetAmount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.targetAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.targetUnit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.targetUnit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.answer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.answer)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.type">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

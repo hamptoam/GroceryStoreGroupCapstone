@@ -1,0 +1,59 @@
+﻿@model IEnumerable<GroceryStoreRewards.Models.ConvertAmounts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.sourceAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sourceUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.targetAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.targetUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.answer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.sourceAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sourceUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.targetAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.targetUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.answer)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.type">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.type">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.type">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
