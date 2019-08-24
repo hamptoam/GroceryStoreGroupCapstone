@@ -155,12 +155,13 @@ namespace GroceryStoreRewards.Controllers
         public object LikeOrDislike()
         {
             var customer = new Customer();
+            var recipe = new Recipes();
+          //  var customerRecipes = new CustomerRecipes(); make/find customerrecipes junction table 
 
             if (customer.customerLikes == true)
             {
 
-              Recipes.AddTo.customers();
-
+             //   CustomerRecipes.Add(); 
 
             }
 
