@@ -7,90 +7,88 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using GroceryStoreRewards.Models;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace GroceryStoreRewards.Controllers
 {
-    public class RecipesController : Controller
+    public class ConvertAmountsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        public ApplicationDbContext _context;
 
-        public RecipesController(ApplicationDbContext context)
+        public ConvertAmountsController(ApplicationDbContext context)
         {
-            Recipes recipe = new Recipes();
             _context = context;
         }
 
-        // GET: Recipes
+        // GET: ConvertAmounts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Recipes.ToListAsync());
+            return View(await _context.ConvertAmounts.ToListAsync());
         }
 
-        // GET: Recipes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: ConvertAmounts/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (recipes == null)
+            var convertAmounts = await _context.ConvertAmounts
+                .FirstOrDefaultAsync(m => m.type == id);
+            if (convertAmounts == null)
             {
                 return NotFound();
             }
 
-            return View(recipes);
+            return View(convertAmounts);
         }
 
-        // GET: Recipes/Create
+        // GET: ConvertAmounts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Recipes/Create
+        // POST: ConvertAmounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
+        public async Task<IActionResult> Create([Bind("type,sourceAmount,sourceUnit,targetAmount,targetUnit,answer")] ConvertAmounts convertAmounts)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(recipes);
+                _context.Add(convertAmounts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(recipes);
+            return View(convertAmounts);
         }
 
-        // GET: Recipes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: ConvertAmounts/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes.FindAsync(id);
-            if (recipes == null)
+            var convertAmounts = await _context.ConvertAmounts.FindAsync(id);
+            if (convertAmounts == null)
             {
                 return NotFound();
             }
-            return View(recipes);
+            return View(convertAmounts);
         }
 
-        // POST: Recipes/Edit/5
+        // POST: ConvertAmounts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
+        public async Task<IActionResult> Edit(string id, [Bind("type,sourceAmount,sourceUnit,targetAmount,targetUnit,answer")] ConvertAmounts convertAmounts)
         {
-            if (id != recipes.Id)
+            if (id != convertAmounts.type)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(recipes);
+                    _context.Update(convertAmounts);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RecipesExists(recipes.Id))
+                    if (!ConvertAmountsExists(convertAmounts.type))
                     {
                         return NotFound();
                     }
@@ -115,69 +113,41 @@ namespace GroceryStoreRewards.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(recipes);
+            return View(convertAmounts);
         }
 
-        // GET: Recipes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: ConvertAmounts/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (recipes == null)
+            var convertAmounts = await _context.ConvertAmounts
+                .FirstOrDefaultAsync(m => m.type == id);
+            if (convertAmounts == null)
             {
                 return NotFound();
             }
 
-            return View(recipes);
+            return View(convertAmounts);
         }
 
-        // POST: Recipes/Delete/5
+        // POST: ConvertAmounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var recipes = await _context.Recipes.FindAsync(id);
-            _context.Recipes.Remove(recipes);
+            var convertAmounts = await _context.ConvertAmounts.FindAsync(id);
+            _context.ConvertAmounts.Remove(convertAmounts);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RecipesExists(int id)
+        private bool ConvertAmountsExists(string id)
         {
-            return _context.Recipes.Any(e => e.Id == id);
-        }
-
-        public object LikeOrDislike()
-        {
-            var customer = new Customer();
-
-            if (customer.customerLikes == true)
-            {
-
-              Recipes.AddTo.customers();
-
-
-            }
-
-            else if (customer.customerLikes == false)
-            {
-
-
-
-
-
-
-
-
-
-            }
-
-            return View();
+            return _context.ConvertAmounts.Any(e => e.type == id);
         }
     }
 }
