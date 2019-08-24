@@ -10,7 +10,18 @@ namespace GroceryStoreRewards.Models
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-          
+            modelBuilder.Entity<CustomerRecipes>()
+                .HasKey(cs => new { cs.RecipeId, cs.CustomerId });
+            modelBuilder.Entity<CustomerRecipes>()
+                .HasOne(cs => cs.Recipes)
+                .WithMany(r => r.customerRecipes)
+                .HasForeignKey(cs => cs.RecipeId);
+            modelBuilder.Entity<CustomerRecipes>()
+                .HasOne(cs => cs.customer)
+                .WithMany(c => c.customerRecipes)
+                .HasForeignKey(cs => cs.CustomerId);
+
+
 
             modelBuilder.Entity<Recipes>().HasData(
                       new Recipes
