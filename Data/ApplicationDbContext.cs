@@ -30,6 +30,10 @@ namespace GroceryStoreRewards.Data
 
         public DbSet<ConvertAmounts> ConvertAmounts { get; set; }
 
+        public DbSet<Likes> customerLikes { get; set; }
+
+        public DbSet<Likes> Likes { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +41,10 @@ namespace GroceryStoreRewards.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
+
+
+
+    
 
 
 

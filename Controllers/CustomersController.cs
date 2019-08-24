@@ -150,27 +150,24 @@ namespace GroceryStoreRewards.Controllers
             return _context.Customer.Any(e => e.UserId == id);
         }
 
-            /* public string Like(int id, bool status)
-            {
-            ApplicationDbContext db = new ApplicationDbContext();
+        //public string Like(int id, bool status)
+        //{
+        //    ApplicationDbContext db = new ApplicationDbContext();
+        //    Likes like = new Likes();
 
-            using (db)
-            {
+        //    using (db)
+        //    {
+        //        var thread = db.Threads.FirstOrDefault(x => x.ThreadID == id)
+        //        var toggle = false;
+        //        Like like = db.Likes.FirstOrDefault(x => x.ThreadID &&
+        //        if (like == null)
+        //        {
+        //            like = new Model.Like();
+        //            like.UserID = Helper.UserId;
 
-                
-                var thread = db.Threads.FirstOrDefault(x => x.ThreadID == id)
-                var toggle = false;
-                Like like = db.Likes.FirstOrDefault(x => x.ThreadID &&
-                if (like == null)
-                {
-                    like = new Model.Like();
-                    like.UserID = Helper.UserId;
-
-                }
-                    */
-                
-            
-        
+        //        }
+        //    }   
+        //}
     }
 }
 

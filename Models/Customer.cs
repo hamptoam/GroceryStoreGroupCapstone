@@ -24,6 +24,7 @@ namespace GroceryStoreRewards.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
         public bool customerLikes { get; set; }
+
         public string Preference { get; set; }
 
     }

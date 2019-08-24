@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using GroceryStoreRewards.Models;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace GroceryStoreRewards.Controllers
 {
@@ -16,6 +17,7 @@ namespace GroceryStoreRewards.Controllers
 
         public RecipesController(ApplicationDbContext context)
         {
+            Recipes recipe = new Recipes();
             _context = context;
         }
 
@@ -150,15 +152,14 @@ namespace GroceryStoreRewards.Controllers
             return _context.Recipes.Any(e => e.Id == id);
         }
 
-        public void likeOrDislike()
+        public object LikeOrDislike()
         {
             var customer = new Customer();
 
             if (customer.customerLikes == true)
             {
 
-
-
+              Recipes.AddTo.customers();
 
 
             }
@@ -169,7 +170,14 @@ namespace GroceryStoreRewards.Controllers
 
 
 
+
+
+
+
+
             }
+
+            return View();
         }
     }
 }
