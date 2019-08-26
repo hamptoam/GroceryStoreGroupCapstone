@@ -13,7 +13,7 @@ namespace GroceryStoreRewards.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
 
             var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/1003464/ingredientWidget.json");
@@ -32,11 +32,11 @@ namespace GroceryStoreRewards.Controllers
             return View(); //deserialize json */
 
 
+
         }
 
         public IActionResult About()
-        {
-            
+        {            
             ViewData["Message"] = "Your application description page.";
 
             return View();

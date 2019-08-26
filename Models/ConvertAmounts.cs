@@ -15,6 +15,7 @@ namespace GroceryStoreRewards.Models
         public int targetAmount { get; set; }
         public string targetUnit { get; set; }
         public string answer { get; set; }
+     
 
     }
 }

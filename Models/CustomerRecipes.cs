@@ -7,16 +7,13 @@ using System.Threading.Tasks;
 
 namespace GroceryStoreRewards.Models
 {
-    public class Ingredients
+    public class CustomerRecipes
     {
+
         [Key]
-        public int Id { get; set; }
-
-        public string name { get; set; }
-
-        
-       public Customer Customer { get; set; }
-
-
+        public int RecipeId { get; set; }
+        public Recipes Recipes { get; set; }
+        public string CustomerId { get; set; }
+        public Customer customer { get; set; }
     }
 }

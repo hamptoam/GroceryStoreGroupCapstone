@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,8 +24,15 @@ namespace GroceryStoreRewards.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
+        public bool customerLikes { get; set; }
 
         public string Preference { get; set; }
+
+        [ForeignKey("Ingredients")]
+        public Ingredients ingredients { get; set; }
+
+        public ICollection<CustomerRecipes>customerRecipes { get; set; }
+
 
     }
 }
