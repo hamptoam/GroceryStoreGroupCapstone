@@ -95,6 +95,8 @@ namespace GroceryStoreRewards.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+
         public async Task<IActionResult> Edit(int id, [Bind("RecipeId,CustomerId")] CustomerRecipes customerRecipes)
         {
             if (id != customerRecipes.RecipeId)

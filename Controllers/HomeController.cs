@@ -8,28 +8,42 @@ using GroceryStoreRewards.Models;
 using RestSharp;
 using System.Net.Http;
 using Newtonsoft.Json;
+using GroceryStoreRewards.Data;
 
 namespace GroceryStoreRewards.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<IActionResult> Index()
-        {
+        public ApplicationDbContext _db;
 
-            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/1003464/ingredientWidget.json");
+        public HomeController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+        public IActionResult Index(int id)
+        {
+            id = 1003464;
+
+            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + id + "/ingredientWidget.json");
             var request = new RestRequest(Method.GET);
             request.AddHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
-            request.AddHeader("x-rapidapi-key", "9aea809182msh45b6cdf8b73c98fp19e9bajsnd317d98d96aa");
+            request.AddHeader("x-rapidapi-key", "f2216af4f5msh71430f2e651f9dap1350a2jsn801bc5c5aa5f");
             var response = client.Execute(request);
             var data = response.Content;
-            var jsonResults = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(data);
+            SpoonacularRecipeIngredients jsonResults = JsonConvert.DeserializeObject<SpoonacularRecipeIngredients>(data);
 
-            //HttpResponseMessage response = await client.GetAsync(apiUrl);
-            //var data = await response.Content.ReadAsStringAsync();
-            //var jsonResults = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(data);
-            //var results = jsonResults["results"][0];
-            //var location = results["name"]["count"];
-            return View(); //deserialize json */
+
+            foreach (Ingredient ingredient in jsonResults.ingredients)
+            {
+                var ing = new Ingredients();
+                ing.Name = ingredient.name;
+                ing.WeightValue = ingredient.amount.metric.value.ToString();
+                ing.unit = Convert.ToInt32(ingredient.amount.metric.unit);
+                _db.Add(ing);
+                _db.SaveChanges();
+            }
+
+            return View(); //deserialize json 
 
 
 

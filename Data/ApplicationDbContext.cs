@@ -49,6 +49,12 @@ namespace GroceryStoreRewards.Data
 
 
 
+
+        public DbSet<GroceryStoreRewards.Models.SearchRecipes> SearchRecipes { get; set; }
+
+
+
+
        
 
 
