@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using GroceryStoreRewards.Models;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using RestSharp;
+using Newtonsoft.Json;
 
 namespace GroceryStoreRewards.Controllers
 {
@@ -24,7 +26,8 @@ namespace GroceryStoreRewards.Controllers
         // GET: Recipes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Recipes.ToListAsync());
+           
+            return View();
         }
 
         // GET: Recipes/Details/5
@@ -58,8 +61,27 @@ namespace GroceryStoreRewards.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
         {
+            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/analyzeInstructions");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "f2216af4f5msh71430f2e651f9dap1350a2jsn801bc5c5aa5f");
+            request.AddHeader("content-type", "application/x-www-form-urlencoded");
+            request.AddParameter("application/x-www-form-urlencoded", "instructions=", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var data = response.Content;
+            Recipes jsonResults = JsonConvert.DeserializeObject<Recipes>(data);
+
+            //foreach (Recipes recipe in jsonResults.)
+            //{
+            //    var recipe = new Recipes ();
+            //    ing.Name = ingredie.name; 
+            //    _db.Add(ing);
+            //    _db.SaveChanges();
+            //}
+
             if (ModelState.IsValid)
             {
+                
                 _context.Add(recipes);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -161,6 +183,10 @@ namespace GroceryStoreRewards.Controllers
             if (customer.customerLikes == true)
             {
 
+<<<<<<< HEAD
+=======
+               CustomerRecipes.Add(); 
+>>>>>>> 4ce9e9125d8cc805964226db4fb75dfa09b9dd0f
 
             }
 

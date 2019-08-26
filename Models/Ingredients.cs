@@ -12,10 +12,11 @@ namespace GroceryStoreRewards.Models
         [Key]
         public int Id { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        
-       public Customer Customer { get; set; }
+        public int unit { get; set; }
+        public string WeightValue { get; set; }
+        public Customer Customer { get; set; }
 
 
     }

@@ -48,15 +48,41 @@ namespace GroceryStoreRewards.Data.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<int?>("Ingredients");
+
                     b.Property<string>("LastName");
 
                     b.Property<string>("Preference");
 
+                    b.Property<bool>("customerLikes");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("Ingredients")
+                        .IsUnique()
+                        .HasFilter("[Ingredients] IS NOT NULL");
 
                     b.ToTable("Customer");
                 });
 
+<<<<<<< HEAD
+            modelBuilder.Entity("GroceryStoreRewards.Models.CustomerRecipes", b =>
+                {
+                    b.Property<int>("RecipeId");
+
+                    b.Property<string>("CustomerId");
+
+                    b.HasKey("RecipeId", "CustomerId");
+
+                    b.HasAlternateKey("RecipeId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("customerRecipes");
+                });
+
+=======
+>>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
             modelBuilder.Entity("GroceryStoreRewards.Models.Ingredients", b =>
                 {
                     b.Property<int>("Id")
@@ -65,11 +91,30 @@ namespace GroceryStoreRewards.Data.Migrations
 
                     b.Property<string>("Name");
 
+<<<<<<< HEAD
+                    b.Property<string>("WeightValue");
+
+                    b.Property<int>("unit");
+
+=======
+>>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
                 });
 
+<<<<<<< HEAD
+            modelBuilder.Entity("GroceryStoreRewards.Models.Likes", b =>
+                {
+                    b.Property<bool>("customerLikes");
+
+                    b.HasKey("customerLikes");
+
+                    b.ToTable("Likes");
+                });
+
+=======
+>>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
             modelBuilder.Entity("GroceryStoreRewards.Models.RecipeIngredient", b =>
                 {
                     b.Property<string>("ingredient")
@@ -90,11 +135,15 @@ namespace GroceryStoreRewards.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Customer");
+
                     b.Property<double>("ingredientAmounts");
 
                     b.Property<string>("ingredients");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Customer");
 
                     b.ToTable("Recipes");
 
@@ -299,6 +348,33 @@ namespace GroceryStoreRewards.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GroceryStoreRewards.Models.Customer", b =>
+                {
+                    b.HasOne("GroceryStoreRewards.Models.Ingredients", "ingredients")
+                        .WithOne("Customer")
+                        .HasForeignKey("GroceryStoreRewards.Models.Customer", "Ingredients");
+                });
+
+            modelBuilder.Entity("GroceryStoreRewards.Models.CustomerRecipes", b =>
+                {
+                    b.HasOne("GroceryStoreRewards.Models.Customer", "customer")
+                        .WithMany("customerRecipes")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GroceryStoreRewards.Models.Recipes", "Recipes")
+                        .WithMany("customerRecipes")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GroceryStoreRewards.Models.Recipes", b =>
+                {
+                    b.HasOne("GroceryStoreRewards.Models.Customer", "customer")
+                        .WithMany()
+                        .HasForeignKey("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

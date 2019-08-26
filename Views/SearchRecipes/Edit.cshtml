@@ -1,0 +1,76 @@
+﻿@model GroceryStoreRewards.Models.SearchRecipes
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>SearchRecipes</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="MyProperty" class="control-label"></label>
+                <input asp-for="MyProperty" class="form-control" />
+                <span asp-validation-for="MyProperty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="results" class="control-label"></label>
+                <input asp-for="results" class="form-control" />
+                <span asp-validation-for="results" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="baseUri" class="control-label"></label>
+                <input asp-for="baseUri" class="form-control" />
+                <span asp-validation-for="baseUri" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="offset" class="control-label"></label>
+                <input asp-for="offset" class="form-control" />
+                <span asp-validation-for="offset" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="number" class="control-label"></label>
+                <input asp-for="number" class="form-control" />
+                <span asp-validation-for="number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="totalRequests" class="control-label"></label>
+                <input asp-for="totalRequests" class="form-control" />
+                <span asp-validation-for="totalRequests" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="processingTimeMs" class="control-label"></label>
+                <input asp-for="processingTimeMs" class="form-control" />
+                <span asp-validation-for="processingTimeMs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="expires" class="control-label"></label>
+                <input asp-for="expires" class="form-control" />
+                <span asp-validation-for="expires" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="isStale" /> @Html.DisplayNameFor(model => model.isStale)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

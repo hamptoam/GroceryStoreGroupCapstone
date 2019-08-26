@@ -19,6 +19,5 @@ namespace GroceryStoreRewards.Models
         public int processingTimeMs { get; set; }
         public int expires { get; set; }
         public bool isStale  { get; set; }
-
     }
 }
