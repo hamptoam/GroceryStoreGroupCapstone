@@ -9,7 +9,6 @@ namespace GroceryStoreRewards.Models
 {
     public class Recipes
     {
-        public static object Ingredients { get; internal set; }
         [Key]
         public int Id { get; set; }
         public double ingredientAmounts { get; set; }

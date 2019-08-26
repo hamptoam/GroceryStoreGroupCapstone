@@ -159,7 +159,7 @@ namespace GroceryStoreRewards.Controllers
             if (customer.customerLikes == true)
             {
 
-              Recipes.AddTo.customers();
+             // Recipes.AddTo.customers();
 
 
             }
