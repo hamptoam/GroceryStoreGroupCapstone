@@ -14,11 +14,11 @@ namespace GroceryStoreRewards.Controllers
 {
     public class IngredientsController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        public ApplicationDbContext _db;
 
-        public IngredientsController(ApplicationDbContext context)
+        public IngredientsController(ApplicationDbContext db)
         {
-            _db = context;
+            _db = db;
         }
 
         // GET: Ingredients

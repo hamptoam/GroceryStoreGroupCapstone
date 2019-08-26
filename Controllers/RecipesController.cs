@@ -73,7 +73,8 @@ namespace GroceryStoreRewards.Controllers
 
             
                 var recipe = new Recipes ();
-                recipes.Name = recipes.Name; 
+                recipe.Name = recipes.Name;
+                recipe.instructions = recipes.instructions;
                 _db.Add(recipe);
                 _db.SaveChanges();
             
