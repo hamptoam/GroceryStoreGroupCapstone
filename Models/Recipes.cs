@@ -17,6 +17,7 @@ namespace GroceryStoreRewards.Models
         {
             public string instructions { get; set; }
         }
+        public string Name { get; set; }
 
         [ForeignKey("Customer")]
         public Customer customer { get; set; }
@@ -25,4 +26,4 @@ namespace GroceryStoreRewards.Models
 
 
 
-}   }
+    }   }

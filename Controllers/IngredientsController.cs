@@ -7,33 +7,56 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using GroceryStoreRewards.Models;
+using RestSharp;
+using Newtonsoft.Json;
 
 namespace GroceryStoreRewards.Controllers
 {
     public class IngredientsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
         public IngredientsController(ApplicationDbContext context)
         {
-            _context = context;
+            _db = context;
         }
 
         // GET: Ingredients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ingredients.ToListAsync());
+            return View(await _db.Ingredients.ToListAsync());
         }
 
         // GET: Ingredients/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            id = 1003464;
+
+            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + id + "/ingredientWidget.json");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "f2216af4f5msh71430f2e651f9dap1350a2jsn801bc5c5aa5f");
+            var response = client.Execute(request);
+            var data = response.Content;
+            SpoonacularRecipeIngredients jsonResults = JsonConvert.DeserializeObject<SpoonacularRecipeIngredients>(data);
+
+
+            foreach (Ingredient ingredient in jsonResults.ingredients)
+            {
+                var ing = new Ingredients();
+                ing.Name = ingredient.name;
+                ing.WeightValue = ingredient.MetricValue.ToString();
+                ing.unit = Convert.ToInt32(ingredient.MetricUnit);
+                _db.Add(ing);
+                _db.SaveChanges();
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
+            var ingredients = await _db.Ingredients
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ingredients == null)
             {
@@ -58,8 +81,8 @@ namespace GroceryStoreRewards.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ingredients);
-                await _context.SaveChangesAsync();
+                _db.Add(ingredients);
+                await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(ingredients);
@@ -73,7 +96,7 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients.FindAsync(id);
+            var ingredients = await _db.Ingredients.FindAsync(id);
             if (ingredients == null)
             {
                 return NotFound();
@@ -97,8 +120,8 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(ingredients);
-                    await _context.SaveChangesAsync();
+                    _db.Update(ingredients);
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +147,7 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var ingredients = await _context.Ingredients
+            var ingredients = await _db.Ingredients
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ingredients == null)
             {
@@ -139,15 +162,15 @@ namespace GroceryStoreRewards.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ingredients = await _context.Ingredients.FindAsync(id);
-            _context.Ingredients.Remove(ingredients);
-            await _context.SaveChangesAsync();
+            var ingredients = await _db.Ingredients.FindAsync(id);
+            _db.Ingredients.Remove(ingredients);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool IngredientsExists(int id)
         {
-            return _context.Ingredients.Any(e => e.Id == id);
+            return _db.Ingredients.Any(e => e.Id == id);
         }
     }
 }

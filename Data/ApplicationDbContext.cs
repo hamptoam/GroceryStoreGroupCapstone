@@ -58,10 +58,6 @@ namespace GroceryStoreRewards.Data
        
 
 
-=======
-<<<<<<< HEAD
->>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
-
 
 
    

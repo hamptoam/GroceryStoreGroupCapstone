@@ -15,12 +15,12 @@ namespace GroceryStoreRewards.Controllers
 {
     public class RecipesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        public ApplicationDbContext _db;
 
-        public RecipesController(ApplicationDbContext context)
+        public RecipesController(ApplicationDbContext db)
         {
             Recipes recipe = new Recipes();
-            _context = context;
+            _db = db;
         }
 
         // GET: Recipes
@@ -38,7 +38,7 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes
+            var recipes = await _db.Recipes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipes == null)
             {
@@ -71,19 +71,18 @@ namespace GroceryStoreRewards.Controllers
             var data = response.Content;
             Recipes jsonResults = JsonConvert.DeserializeObject<Recipes>(data);
 
-            //foreach (Recipes recipe in jsonResults.)
-            //{
-            //    var recipe = new Recipes ();
-            //    ing.Name = ingredie.name; 
-            //    _db.Add(ing);
-            //    _db.SaveChanges();
-            //}
+            
+                var recipe = new Recipes ();
+                recipes.Name = recipes.Name; 
+                _db.Add(recipe);
+                _db.SaveChanges();
+            
 
             if (ModelState.IsValid)
             {
                 
-                _context.Add(recipes);
-                await _context.SaveChangesAsync();
+                _db.Add(recipes);
+                await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(recipes);
@@ -97,7 +96,7 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes.FindAsync(id);
+            var recipes = await _db.Recipes.FindAsync(id);
             if (recipes == null)
             {
                 return NotFound();
@@ -112,6 +111,18 @@ namespace GroceryStoreRewards.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ingredientAmounts,ingredients")] Recipes recipes)
         {
+
+            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/visualizeRecipe");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "f2216af4f5msh71430f2e651f9dap1350a2jsn801bc5c5aa5f");
+            request.AddHeader("content-type", "multipart/form-data; boundary=---011000010111000001101001");
+            IRestResponse response = client.Execute(request);
+
+            var data = response.Content;
+            CustomerRecipes jsonResults = JsonConvert.DeserializeObject<CustomerRecipes>(data);
+
+
             if (id != recipes.Id)
             {
                 return NotFound();
@@ -121,8 +132,8 @@ namespace GroceryStoreRewards.Controllers
             {
                 try
                 {
-                    _context.Update(recipes);
-                    await _context.SaveChangesAsync();
+                    _db.Update(recipes);
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,7 +159,7 @@ namespace GroceryStoreRewards.Controllers
                 return NotFound();
             }
 
-            var recipes = await _context.Recipes
+            var recipes = await _db.Recipes
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (recipes == null)
             {
@@ -163,15 +174,15 @@ namespace GroceryStoreRewards.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var recipes = await _context.Recipes.FindAsync(id);
-            _context.Recipes.Remove(recipes);
-            await _context.SaveChangesAsync();
+            var recipes = await _db.Recipes.FindAsync(id);
+            _db.Recipes.Remove(recipes);
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RecipesExists(int id)
         {
-            return _context.Recipes.Any(e => e.Id == id);
+            return _db.Recipes.Any(e => e.Id == id);
         }
 
         public object LikeOrDislike()
@@ -183,10 +194,7 @@ namespace GroceryStoreRewards.Controllers
             if (customer.customerLikes == true)
             {
 
-<<<<<<< HEAD
-=======
-               CustomerRecipes.Add(); 
->>>>>>> 4ce9e9125d8cc805964226db4fb75dfa09b9dd0f
+
 
             }
 

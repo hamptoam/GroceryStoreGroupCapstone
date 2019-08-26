@@ -28,7 +28,10 @@ namespace GroceryStoreRewards.Models
     {
         public string name { get; set; }
         public string image { get; set; }
-        public Amount amount { get; set; }
+        public double MetricValue { get; set; }
+        public string MetricUnit { get; set; }
+        public double UsValue { get; set; }
+        public string UsUnit { get; set; }
     }
 
     public class SpoonacularRecipeIngredients
