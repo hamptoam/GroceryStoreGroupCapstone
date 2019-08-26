@@ -24,11 +24,7 @@ namespace GroceryStoreRewards.Data
 
         public DbSet<Ingredients> Ingredients { get; set; }
 
-<<<<<<< HEAD
-       
 
-=======
->>>>>>> e3ca22028eca5c933c4905717536d093dd080f84
         public DbSet<SummarizeRecipeAPI> SummarizeRecipeAPI { get; set; }
 
         public DbSet<RecipeIngredient> RecipeIngredient { get; set; }
@@ -39,10 +35,8 @@ namespace GroceryStoreRewards.Data
 
         public DbSet<Likes> Likes { get; set; }
 
-<<<<<<< HEAD
-=======
+
         public DbSet<CustomerRecipes> customerRecipes { get; set; }
->>>>>>> e3ca22028eca5c933c4905717536d093dd080f84
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,9 +44,9 @@ namespace GroceryStoreRewards.Data
             modelBuilder.Seed();
         }
 
-    }
+    
 
-<<<<<<< HEAD
+
 
 
 
@@ -60,7 +54,5 @@ namespace GroceryStoreRewards.Data
 
     
 }   }
-=======
-}   
->>>>>>> e3ca22028eca5c933c4905717536d093dd080f84
+
 

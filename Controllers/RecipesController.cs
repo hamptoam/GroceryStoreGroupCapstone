@@ -161,12 +161,6 @@ namespace GroceryStoreRewards.Controllers
             if (customer.customerLikes == true)
             {
 
-<<<<<<< HEAD
-             // Recipes.AddTo.customers();
-
-=======
-             //   CustomerRecipes.Add(); 
->>>>>>> e3ca22028eca5c933c4905717536d093dd080f84
 
             }
 
