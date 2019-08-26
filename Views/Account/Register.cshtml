@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<GroceryStoreRewards.Models.Customer>
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +6,41 @@
 
 <h2>Register</h2>
 
+<p>
+    <a asp-action="Create"> Register</a>
+</p>
+<table class="table">
+       <thead>
+           <tr>
+               <th>
+                   @Html.DisplayNameFor(model => model.FirstName)
+               </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+               <th>
+                   @Html.DisplayNameFor(model => model.Email)
+               </th>
+           </tr>
+       </thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            <a asp-action="Save" asp-route-id="item.Id">Save</a> |
+            <a asp-action="Cancel" asp-route-id="item.Id">Cancel</a> |
+        </td>
+    </tr>
+    }
+</tbody>
+</table>

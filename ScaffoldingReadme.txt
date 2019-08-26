@@ -8,7 +8,7 @@ The generated UI requires support for static files. To add static files to your 
 1. Call app.UseStaticFiles() from your Configure method
 
 To use ASP.NET Core Identity you also need to enable authentication. To authentication to your app:
-1. Call app.UseAuthentication() from your Configure method (after static files)
+1. Call app.UseAuthentication() from your Configure method (after static files)C:\Users\Student\Desktop\GroceryStoreGroupCapstone\Views\Customers\Details.cshtml
 
 The generated UI requires MVC. To add MVC to your app:
 1. Call services.AddMvc() from your ConfigureServices method
