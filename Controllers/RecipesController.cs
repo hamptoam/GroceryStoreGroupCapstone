@@ -183,7 +183,7 @@ namespace GroceryStoreRewards.Controllers
             if (customer.customerLikes == true)
             {
 
-             //   CustomerRecipes.Add(); 
+               CustomerRecipes.Add(); 
 
             }
 

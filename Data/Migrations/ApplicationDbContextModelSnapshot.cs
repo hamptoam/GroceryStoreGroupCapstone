@@ -65,6 +65,7 @@ namespace GroceryStoreRewards.Data.Migrations
                     b.ToTable("Customer");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("GroceryStoreRewards.Models.CustomerRecipes", b =>
                 {
                     b.Property<int>("RecipeId");
@@ -80,6 +81,8 @@ namespace GroceryStoreRewards.Data.Migrations
                     b.ToTable("customerRecipes");
                 });
 
+=======
+>>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
             modelBuilder.Entity("GroceryStoreRewards.Models.Ingredients", b =>
                 {
                     b.Property<int>("Id")
@@ -88,15 +91,19 @@ namespace GroceryStoreRewards.Data.Migrations
 
                     b.Property<string>("Name");
 
+<<<<<<< HEAD
                     b.Property<string>("WeightValue");
 
                     b.Property<int>("unit");
 
+=======
+>>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("GroceryStoreRewards.Models.Likes", b =>
                 {
                     b.Property<bool>("customerLikes");
@@ -106,6 +113,8 @@ namespace GroceryStoreRewards.Data.Migrations
                     b.ToTable("Likes");
                 });
 
+=======
+>>>>>>> 835f06d89e74d89fc68617a5e513bfe65bbfd288
             modelBuilder.Entity("GroceryStoreRewards.Models.RecipeIngredient", b =>
                 {
                     b.Property<string>("ingredient")
