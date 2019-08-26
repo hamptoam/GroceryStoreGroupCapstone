@@ -19,6 +19,26 @@ namespace GroceryStoreRewards.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GroceryStoreRewards.Models.ConvertAmounts", b =>
+                {
+                    b.Property<string>("type")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("answer");
+
+                    b.Property<int>("sourceAmount");
+
+                    b.Property<string>("sourceUnit");
+
+                    b.Property<int>("targetAmount");
+
+                    b.Property<string>("targetUnit");
+
+                    b.HasKey("type");
+
+                    b.ToTable("ConvertAmounts");
+                });
+
             modelBuilder.Entity("GroceryStoreRewards.Models.Customer", b =>
                 {
                     b.Property<string>("UserId")
@@ -37,6 +57,33 @@ namespace GroceryStoreRewards.Data.Migrations
                     b.ToTable("Customer");
                 });
 
+            modelBuilder.Entity("GroceryStoreRewards.Models.Ingredients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("GroceryStoreRewards.Models.RecipeIngredient", b =>
+                {
+                    b.Property<string>("ingredient")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("count");
+
+                    b.Property<string>("measurementType");
+
+                    b.HasKey("ingredient");
+
+                    b.ToTable("RecipeIngredient");
+                });
+
             modelBuilder.Entity("GroceryStoreRewards.Models.Recipes", b =>
                 {
                     b.Property<int>("Id")
@@ -47,11 +94,20 @@ namespace GroceryStoreRewards.Data.Migrations
 
                     b.Property<string>("ingredients");
 
-                    b.Property<string>("shoppingList");
-
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new { Id = 1, ingredientAmounts = 2.0, ingredients = "pasta" },
+                        new { Id = 2, ingredientAmounts = 2.0, ingredients = "chicken" },
+                        new { Id = 3, ingredientAmounts = 4.0, ingredients = "chickenBreast" },
+                        new { Id = 4, ingredientAmounts = 3.0, ingredients = "leanChicken" },
+                        new { Id = 5, ingredientAmounts = 10.0, ingredients = "ChickenBroth" },
+                        new { Id = 6, ingredientAmounts = 20.0, ingredients = "CondensedChicken" },
+                        new { Id = 7, ingredientAmounts = 5.0, ingredients = "chickenSoup" },
+                        new { Id = 8, ingredientAmounts = 4.0, ingredients = "breadedChicken" }
+                    );
                 });
 
             modelBuilder.Entity("GroceryStoreRewards.Models.ShoppingList", b =>
@@ -67,6 +123,21 @@ namespace GroceryStoreRewards.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("ShoppingLists");
+                });
+
+            modelBuilder.Entity("GroceryStoreRewards.Models.SummarizeRecipeAPI", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("summary");
+
+                    b.Property<string>("title");
+
+                    b.HasKey("id");
+
+                    b.ToTable("SummarizeRecipeAPI");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -186,11 +257,9 @@ namespace GroceryStoreRewards.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -221,11 +290,9 @@ namespace GroceryStoreRewards.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
