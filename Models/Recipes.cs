@@ -9,11 +9,14 @@ namespace GroceryStoreRewards.Models
 {
     public class Recipes
     {
-        public static object Ingredients { get; internal set; }
         [Key]
         public int Id { get; set; }
         public double ingredientAmounts { get; set; }
         public string ingredients { get; set; }
+        public class Recipe
+        {
+            public string instructions { get; set; }
+        }
 
         [ForeignKey("Customer")]
         public Customer customer { get; set; }

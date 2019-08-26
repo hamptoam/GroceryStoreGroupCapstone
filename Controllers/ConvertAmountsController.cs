@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GroceryStoreRewards.Data;
 using GroceryStoreRewards.Models;
+using RestSharp;
+using Newtonsoft.Json;
 
 namespace GroceryStoreRewards.Controllers
 {
@@ -22,6 +24,13 @@ namespace GroceryStoreRewards.Controllers
         // GET: ConvertAmounts
         public async Task<IActionResult> Index()
         {
+            var client = new RestClient("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/convert?sourceUnit=cups&sourceAmount=2.5&ingredientName=flour&targetUnit=grams");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "f2216af4f5msh71430f2e651f9dap1350a2jsn801bc5c5aa5f");
+            IRestResponse response = client.Execute(request);
+            var data = response.Content;
+            ConvertAmounts jsonResults = JsonConvert.DeserializeObject<ConvertAmounts>(data);
             return View(await _context.ConvertAmounts.ToListAsync());
         }
 

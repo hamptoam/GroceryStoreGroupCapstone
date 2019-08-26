@@ -1,0 +1,72 @@
+﻿@model GroceryStoreRewards.Models.SearchRecipes
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SearchRecipes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MyProperty)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MyProperty)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.results)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.results)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.baseUri)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.baseUri)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.offset)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.offset)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.number)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.totalRequests)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.totalRequests)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.processingTimeMs)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.processingTimeMs)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.expires)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.expires)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isStale)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isStale)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
